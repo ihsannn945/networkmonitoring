@@ -17,7 +17,7 @@ This project demonstrates the integration of **System Administration** and **Pyt
     * `platform`: To ensure compatibility across different operating systems.
     * `datetime`: To provide accurate logs.
 
-## 📁 How to Use / Anwendung
+# How to Use / Anwendung
 1. Add your target IP addresses to the `targets` list in `monitor.py`.
 2. Run the script using:
    ```bash
