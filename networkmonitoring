@@ -1,0 +1,32 @@
+import os
+import platform
+import datetime
+
+# --- CONFIGURATION / KONFIGURATION ---
+# List of targets to check (IP or Domain)
+# Liste der zu prüfenden Ziele (IP oder Domain)
+targets = ["8.8.8.8", "google.com", "127.0.0.1"]
+
+def check_network():
+    """Checks the status of network devices and prints the result."""
+    print(f"--- Monitoring Started / Überwachung gestartet: {datetime.datetime.now()} ---")
+    
+    # Check OS to use the correct ping parameter
+    # Betriebssystem prüfen, um den richtigen Ping-Parameter zu verwenden
+    param = '-n' if platform.system().lower() == 'windows' else '-c'
+    
+    for host in targets:
+        # Execute ping command / Ping-Befehl ausführen
+        # '> nul' (Windows) or '> /dev/null' (Linux) hides the raw output
+        null_output = "> nul" if platform.system().lower() == 'windows' else "> /dev/null 2>&1"
+        response = os.system(f"ping {param} 1 {host} {null_output}")
+        
+        timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+        
+        if response == 0:
+            print(f"[{timestamp}] SUCCESS / ERFOLG: {host} is UP (Aktiv)")
+        else:
+            print(f"[{timestamp}] ERROR / FEHLER: {host} is DOWN (Inaktiv) !!!")
+
+if __name__ == "__main__":
+    check_network()
